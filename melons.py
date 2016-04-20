@@ -62,6 +62,9 @@ def read_melon_types_from_file(filepath):
         # For seedless, we want to turn "1" => True, otherwise False
         seedless = (seedless == "1")
 
+        # melon_types is our dictionary
+        # Melon() are instances(objects) of the Melon class
+        # The instances are now the values of our dictionary which are Melon objects
         melon_types[id] = Melon(id,
                                 melon_type,
                                 common_name,
@@ -94,6 +97,7 @@ def get_by_id(id):
     # This relies on access to the global dictionary `melon_types`
 
     return melon_types[id]
+    # returning instances(objects) of our Melon class
 
 
 # Dictionary to hold types of melons.
