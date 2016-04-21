@@ -85,7 +85,7 @@ def shopping_cart():
     # print session.items()
 
     for item in session["cart"]:
-        print item.items()
+        print item
     # for item, information in session.items():
     #     print information
 
