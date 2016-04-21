@@ -73,24 +73,31 @@ def shopping_cart():
 
     # session['cart'] = [2, 2, 3, 1, 4]
     # get_by_id(2) ==> Watermelon()  {.price, .name}
-
-
-    # print session["cart"]
-
-
-
-
-
-
-    # print session.items()
-
-    for item in session["cart"]:
-        print item
-    # for item, information in session.items():
-    #     print information
-
     # total_amt = 300.00
     # melons = [{'name': 'Watermleon', 'price': 2, 'total': 20}]
+
+    # print session["cart"]
+    # print session.items()
+
+    cart = {}
+
+    qty = 0
+
+    for melon_id in session["cart"]:
+        # for every melon_id in dictionary session["cart"]
+        if melon_id in cart:
+            # if that melon_id is in our cart increase qty by 1
+            cart[melon_id] = {'qty': qty + 1}
+        else:
+            #add id to the cart
+            melon = melons.get_by_id(melon_id)
+            # melons is the file name where the function get_by_id lives
+            # get_by_id is a dictionary that has all our melon instances
+            # melon is all the information we are getting from 
+
+            cart[melon_id] = {'price': melon.price, 'name': melon.common_name, 'qty': 1}
+          
+    print cart
     return render_template("cart.html")
 
 @app.route("/add_to_cart/<int:id>")
