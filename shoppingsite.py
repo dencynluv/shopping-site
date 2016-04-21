@@ -7,7 +7,7 @@ Authors: Joel Burton, Christian Fernandez, Meggie Mahnken.
 """
 
 
-from flask import Flask, render_template, redirect, flash
+from flask import Flask, render_template, redirect, flash, session
 import jinja2
 
 import melons
@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 # Need to use Flask sessioning features
 
-app.secret_key = 'this-should-be-something-unguessable'
+app.secret_key = 'acacacacacacacacacac'
 
 # Normally, if you refer to an undefined variable in a Jinja template,
 # Jinja silently ignores this. This makes debugging difficult, so we'll
@@ -57,7 +57,7 @@ def show_melon(melon_id):
 
 
 @app.route("/cart")
-def shopping_cart():
+def shopping_cart(melon_id):
     """Display content of shopping cart."""
 
     # TODO: Display the contents of the shopping cart.
@@ -71,8 +71,8 @@ def shopping_cart():
     #   - keep track of the total amt of the entire order
     # - hand to the template the total order cost and the list of melon types
 
-    return render_template("cart.html")
 
+    return render_template("cart.html")
 
 @app.route("/add_to_cart/<int:id>")
 def add_to_cart(id):
@@ -81,6 +81,22 @@ def add_to_cart(id):
     When a melon is added to the cart, redirect browser to the shopping cart
     page and display a confirmation message: 'Successfully added to cart'.
     """
+    
+    cart = session.get("cart")
+    # cart is bound to whatever is in our 
+    # session dictionary at the key "cart" 
+
+    if cart is None:   #if the key "cart" is not there
+        session['cart'] = []  #we are creating the key w/ an empty list value
+
+    session['cart'].append(id)
+     #append the melon id to our key "cart" 
+
+
+
+    print session["cart"]
+    flash("Successfully added to cart")
+    
 
     # TODO: Finish shopping cart functionality
 
@@ -88,7 +104,9 @@ def add_to_cart(id):
     #
     # - add the id of the melon they bought to the cart in the session
 
-    return "Oops! This needs to be implemented!"
+    
+    return render_template("cart.html")
+
 
 
 @app.route("/login", methods=["GET"])
