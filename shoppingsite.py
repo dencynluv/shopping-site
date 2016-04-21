@@ -57,7 +57,7 @@ def show_melon(melon_id):
 
 
 @app.route("/cart")
-def shopping_cart(melon_id):
+def shopping_cart():
     """Display content of shopping cart."""
 
     # TODO: Display the contents of the shopping cart.
@@ -71,7 +71,26 @@ def shopping_cart(melon_id):
     #   - keep track of the total amt of the entire order
     # - hand to the template the total order cost and the list of melon types
 
+    # session['cart'] = [2, 2, 3, 1, 4]
+    # get_by_id(2) ==> Watermelon()  {.price, .name}
 
+
+    # print session["cart"]
+
+
+
+
+
+
+    # print session.items()
+
+    for item in session["cart"]:
+        print item.items()
+    # for item, information in session.items():
+    #     print information
+
+    # total_amt = 300.00
+    # melons = [{'name': 'Watermleon', 'price': 2, 'total': 20}]
     return render_template("cart.html")
 
 @app.route("/add_to_cart/<int:id>")
@@ -81,6 +100,11 @@ def add_to_cart(id):
     When a melon is added to the cart, redirect browser to the shopping cart
     page and display a confirmation message: 'Successfully added to cart'.
     """
+    # TODO: Finish shopping cart functionality
+
+    # The logic here should be something like:
+    #
+    # - add the id of the melon they bought to the cart in the session
     
     cart = session.get("cart")
     # cart is bound to whatever is in our 
@@ -93,19 +117,11 @@ def add_to_cart(id):
      #append the melon id to our key "cart" 
 
 
+    # print session["cart"]
 
-    print session["cart"]
     flash("Successfully added to cart")
     
-
-    # TODO: Finish shopping cart functionality
-
-    # The logic here should be something like:
-    #
-    # - add the id of the melon they bought to the cart in the session
-
-    
-    return render_template("cart.html")
+    return redirect("/cart")
 
 
 
